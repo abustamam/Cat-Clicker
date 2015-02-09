@@ -1,9 +1,14 @@
 * {box-sizing:border-box;}
 body {background-color: #CCC;}
 
-img {
+#cats {
     display: block;
     margin: 0 auto;
+    width: 1300px;
+}
+
+.cat {
+    display:inline;
 }
 
 h1 {
