@@ -7,13 +7,13 @@ body {background-color: #CCC;}
     width: 1300px;
 }
 
-#catarea {
+#catarea, .cat {
     display: block;
     margin: 0 auto;
 }
 
-.cat {
-    display:inline;
+.nocat {
+    display: none;
 }
 
 h1, .catlist {
