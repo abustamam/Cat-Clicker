@@ -17,3 +17,9 @@ Since the HTML skeleton is already available for me, I merely dumped both cats i
 I still feel good about my code, though it's still not beautiful. 
 
 Clicked probably another 10 times to test functionality. 
+
+## version 0.3
+
+Finally, I added 5 cats, and each cat has its own click-counter. 
+
+It took WAY too long for me to figure out how to do it, but using classes seemed to be the way to go. Now, as long as I have the pics, I am able to add as many cats as I want!
