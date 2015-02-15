@@ -1,23 +1,12 @@
 * {box-sizing:border-box;}
 body {background-color: #CCC;}
 
-.catpic {
-    display: block;
-    margin: 0 auto;
-    width: 1300px;
-}
-
-img {
-  display: block;
-  margin: 0 auto;
-}
-
-#catarea{
+img, #catarea{
     display: block;
     margin: 0 auto;
 }
 
-ul {
+ul, #reset{
   width: 100%;
   text-align: center;
 }

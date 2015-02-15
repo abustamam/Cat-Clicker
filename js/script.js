@@ -71,9 +71,27 @@ $(function(){
                     return function() {
                         this.catId = im;
                         catImgView.render(im);
+                        $('#clicks').text(octopus.getClicks(im));
                     }
                 })(catNum));
             });
+
+            $('#reset').on('click', function(){
+                var conf = confirm("Kittens may be sad. Proceed?");
+                if (conf) {
+                    localStorage.clear();
+                    localStorage.cats = JSON.stringify([
+                        {cat: 0, clicks: 0},
+                        {cat: 1, clicks: 0},
+                        {cat: 2, clicks: 0},
+                        {cat: 3, clicks: 0},
+                        {cat: 4, clicks: 0},
+                        {cat: 5, clicks: 0}
+                    ]);
+                    $('#clicks').text(0);
+                }
+            });
+
         }
     };
 
@@ -87,7 +105,6 @@ $(function(){
             $('#pic' + num).on('click', function(){
                 $('#clicks').text(octopus.click(num));
             });
-            $('#clicks').text(octopus.getClicks(num));
         }
     };
 
