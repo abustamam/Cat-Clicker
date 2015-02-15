@@ -1,15 +1,31 @@
 * {box-sizing:border-box;}
 body {background-color: #CCC;}
 
-#cats, .catpic {
+.catpic {
     display: block;
     margin: 0 auto;
     width: 1300px;
 }
 
-#catarea, .cat {
+img {
+  display: block;
+  margin: 0 auto;
+}
+
+#catarea{
     display: block;
     margin: 0 auto;
+}
+
+ul {
+  width: 100%;
+  text-align: center;
+}
+
+.cat {
+  display: inline-block;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 
 .nocat {
