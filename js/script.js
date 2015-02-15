@@ -1,33 +1,24 @@
 $(function(){
 
     var model = {
+        currentCat: null,
+
         init: function(){
+            var kitties = [
+                        {cat: 0, clicks: 0},
+                        {cat: 1, clicks: 0},
+                        {cat: 2, clicks: 0},
+                        {cat: 3, clicks: 0},
+                        {cat: 4, clicks: 0},
+                        {cat: 5, clicks: 0}
+                    ];
             if (!localStorage.cats) {
-                localStorage.cats = JSON.stringify([
-                    {cat: 0, clicks: 0},
-                    {cat: 1, clicks: 0},
-                    {cat: 2, clicks: 0},
-                    {cat: 3, clicks: 0},
-                    {cat: 4, clicks: 0},
-                    {cat: 5, clicks: 0}
-                    ]);
+                localStorage.cats = JSON.stringify(kitties);
             }
         },
 
         getAllCats: function() {
             return JSON.parse(localStorage.cats);
-        },
-
-        getClicks: function(catNum){
-            var data = JSON.parse(localStorage.cats);
-            return data[catNum]['clicks'];
-        },
-
-        click: function(catNum) {
-            var data = JSON.parse(localStorage.cats);
-            data[catNum]['clicks'] += 1;
-            localStorage.cats = JSON.stringify(data);
-            return data[catNum]['clicks'];
         }
     };
 
@@ -38,16 +29,27 @@ $(function(){
 
         init: function() {
             model.init();
+            var cats = JSON.parse(localStorage.cats);
+            model.currentCat = cats[0];
+
             catListView.init();
             catImgView.init();
         },
 
-        getClicks: function(catNum) {
-            return model.getClicks(catNum);
+        getCurrentCat: function() {
+            return model.currentCat;
         },
 
-        click: function(catNum) {
-            return model.click(catNum);
+        setCurrentCat: function(cat) {
+            model.currentCat = cat;
+        },
+
+        click: function() {
+            var cats = model.getAllCats();
+            model.currentCat.clicks += 1;
+            cats[model.currentCat.cat] = model.currentCat;
+            localStorage.cats = JSON.stringify(cats);
+            catImgView.render();
         }
     };
 
@@ -58,36 +60,30 @@ $(function(){
         },
 
         render: function(){
+            var cat;
+            var cats = octopus.getCats();
             var htmlStr = '';
-            this.catId = 0;
-            octopus.getCats().forEach(function(cat){
+            cats.forEach(function(cat){
                 htmlStr += '<li class="cat" id="cat' + cat.cat + '">Cat Number ' + 
                                 cat.cat +
                             '</li>';
             });
             this.catList.html( htmlStr );
             $('.cat').each(function(catNum){
-                $('#cat' + catNum).on('click', (function(im){
+                cat = cats[catNum];
+                $('#cat' + catNum).on('click', (function(catCopy){
                     return function() {
-                        this.catId = im;
-                        catImgView.render(im);
-                        $('#clicks').text(octopus.getClicks(im));
+                        octopus.setCurrentCat(catCopy);
+                        catImgView.render();
                     }
-                })(catNum));
+                })(cat));
             });
 
             $('#reset').on('click', function(){
                 var conf = confirm("Kittens may be sad. Proceed?");
                 if (conf) {
                     localStorage.clear();
-                    localStorage.cats = JSON.stringify([
-                        {cat: 0, clicks: 0},
-                        {cat: 1, clicks: 0},
-                        {cat: 2, clicks: 0},
-                        {cat: 3, clicks: 0},
-                        {cat: 4, clicks: 0},
-                        {cat: 5, clicks: 0}
-                    ]);
+                    model.init();
                     $('#clicks').text(0);
                 }
             });
@@ -97,14 +93,19 @@ $(function(){
 
     var catImgView = {
         init: function() {
-            this.catImg = $('#catpic');
+            this.catarea = $('#catarea');
+            this.catpic = $('#catpic');
+            this.catpic.on('click', function(){
+                octopus.click();
+            });
+
+            this.render();
         },
 
-        render: function(num) {
-            this.catImg.html( '<img id="pic' + num + '" src="img/cat' + num + '.jpg" />' );
-            $('#pic' + num).on('click', function(){
-                $('#clicks').text(octopus.click(num));
-            });
+        render: function() {
+            var cat = octopus.getCurrentCat();
+            this.catpic.attr('src', 'img/cat' + cat.cat + '.jpg');
+            $('#clicks').text(cat.clicks);
         }
     };
 
