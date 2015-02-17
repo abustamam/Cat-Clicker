@@ -5,12 +5,12 @@ $(function(){
 
         init: function(){
             var kitties = [
-                        {cat: 0, clicks: 0},
-                        {cat: 1, clicks: 0},
-                        {cat: 2, clicks: 0},
-                        {cat: 3, clicks: 0},
-                        {cat: 4, clicks: 0},
-                        {cat: 5, clicks: 0}
+                        {url: 'img/cat0.jpg', clicks: 0},
+                        {url: 'img/cat1.jpg', clicks: 0},
+                        {url: 'img/cat2.jpg', clicks: 0},
+                        {url: 'img/cat3.jpg', clicks: 0},
+                        {url: 'img/cat4.jpg', clicks: 0},
+                        {url: 'img/cat5.jpg', clicks: 0}
                     ];
             if (!localStorage.kitties) {
                 localStorage.kitties = JSON.stringify(kitties);
@@ -47,11 +47,8 @@ $(function(){
         click: function() {
             var cats = octopus.getCats();
             var currentCat = octopus.getCurrentCat();
-            console.log(currentCat);
             cats[currentCat].clicks += 1;
-            console.log(cats);
             localStorage.kitties = JSON.stringify(cats);
-            console.log(cats);
             catImgView.render();
         }
     };
@@ -67,8 +64,8 @@ $(function(){
             var catNum = 0;
             var cats = octopus.getCats();
             var htmlStr = '';
-            cats.forEach(function(cat){
-                catNum = cat.cat + 1
+            cats.forEach(function(cat, idx, arr){
+                catNum = idx + 1
                 htmlStr += '<li class="cat" id="cat' + catNum + '">Cat Number ' + 
                                 catNum +
                             '</li>';
@@ -110,7 +107,7 @@ $(function(){
         render: function() {
             var cats = octopus.getCats();
             var catNum = octopus.getCurrentCat();
-            this.catpic.attr('src', 'img/cat' + catNum + '.jpg');
+            this.catpic.attr('src', cats[catNum].url);
             $('#clicks').text(cats[catNum].clicks);
         }
     };
