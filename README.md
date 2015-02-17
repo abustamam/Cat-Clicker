@@ -31,3 +31,8 @@ Using MVO, I was able to abstract my code to separate concerns. However, in simp
 - When opening app for the first time and clicking on kitten 0 a few times, switching to one kitten then back to kitten 0 resets kitten 0 back to 0 clicks, first time only. Cause is likely currentCat.
 
 - When clicking reset button, and switching to another cat that has clicks (without refreshing), cat will still display its old number of clicks. A refresh will fix this. Cause is likely the fact that switching cats uses a copy of currentCat, and the copy's clicks are not reset. Since the scope of the cat copy is limited to the IIFE, I will try to determine a workaround. 
+
+## version 0.4b
+
+Bugfix: all kitten data are synced with local storage (saves on each click)
+Bugfix: Reset button works properly

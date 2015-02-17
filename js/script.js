@@ -1,7 +1,7 @@
 $(function(){
 
     var model = {
-        currentCat: null,
+        currentCatNum: 0,
 
         init: function(){
             var kitties = [
@@ -12,13 +12,13 @@ $(function(){
                         {cat: 4, clicks: 0},
                         {cat: 5, clicks: 0}
                     ];
-            if (!localStorage.cats) {
-                localStorage.cats = JSON.stringify(kitties);
+            if (!localStorage.kitties) {
+                localStorage.kitties = JSON.stringify(kitties);
             }
         },
 
         getAllCats: function() {
-            return JSON.parse(localStorage.cats);
+            return JSON.parse(localStorage.kitties);
         }
     };
 
@@ -29,26 +29,29 @@ $(function(){
 
         init: function() {
             model.init();
-            var cats = JSON.parse(localStorage.cats);
-            model.currentCat = cats[0];
+            var cats = JSON.parse(localStorage.kitties);
+            model.currentCatNum = 0;
 
             catListView.init();
             catImgView.init();
         },
 
         getCurrentCat: function() {
-            return model.currentCat;
+            return model.currentCatNum;
         },
 
-        setCurrentCat: function(cat) {
-            model.currentCat = cat;
+        setCurrentCat: function(catNum) {
+            model.currentCatNum = catNum;
         },
 
         click: function() {
-            var cats = model.getAllCats();
-            model.currentCat.clicks += 1;
-            cats[model.currentCat.cat] = model.currentCat;
-            localStorage.cats = JSON.stringify(cats);
+            var cats = octopus.getCats();
+            var currentCat = octopus.getCurrentCat();
+            console.log(currentCat);
+            cats[currentCat].clicks += 1;
+            console.log(cats);
+            localStorage.kitties = JSON.stringify(cats);
+            console.log(cats);
             catImgView.render();
         }
     };
@@ -60,23 +63,25 @@ $(function(){
         },
 
         render: function(){
-            var cat;
+            var catn = 0;
+            var catNum = 0;
             var cats = octopus.getCats();
             var htmlStr = '';
             cats.forEach(function(cat){
-                htmlStr += '<li class="cat" id="cat' + cat.cat + '">Cat Number ' + 
-                                cat.cat +
+                catNum = cat.cat + 1
+                htmlStr += '<li class="cat" id="cat' + catNum + '">Cat Number ' + 
+                                catNum +
                             '</li>';
             });
             this.catList.html( htmlStr );
-            $('.cat').each(function(catNum){
-                cat = cats[catNum];
-                $('#cat' + catNum).on('click', (function(catCopy){
+            $('.cat').each(function(catNo){
+                catn = catNo + 1;
+                $('#cat' + catn).on('click', (function(catCopy){
                     return function() {
                         octopus.setCurrentCat(catCopy);
                         catImgView.render();
                     }
-                })(cat));
+                })(catNo));
             });
 
             $('#reset').on('click', function(){
@@ -103,9 +108,10 @@ $(function(){
         },
 
         render: function() {
-            var cat = octopus.getCurrentCat();
-            this.catpic.attr('src', 'img/cat' + cat.cat + '.jpg');
-            $('#clicks').text(cat.clicks);
+            var cats = octopus.getCats();
+            var catNum = octopus.getCurrentCat();
+            this.catpic.attr('src', 'img/cat' + catNum + '.jpg');
+            $('#clicks').text(cats[catNum].clicks);
         }
     };
 
