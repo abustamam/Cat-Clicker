@@ -36,3 +36,7 @@ Using MVO, I was able to abstract my code to separate concerns. However, in simp
 
 Bugfix: all kitten data are synced with local storage (saves on each click)
 Bugfix: Reset button works properly
+
+## version 0.5
+
+Add admin panel, which allows "cheating" (aka changing number of clicks)
