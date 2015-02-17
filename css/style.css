@@ -6,7 +6,7 @@ img, #catarea{
     margin: 0 auto;
 }
 
-ul, #reset{
+ul, h3, #admin-panel{
   width: 100%;
   text-align: center;
 }
@@ -17,10 +17,10 @@ ul, #reset{
   margin-left: 10px;
 }
 
-.nocat {
-    display: none;
-}
-
 h1, .catlist {
     text-align: center;
+}
+
+.hidden {
+  display: none;
 }

@@ -15,6 +15,16 @@
     <h1 id="clicks">0</h1>
 
     <h3 id="reset">Reset ALL Clicks</h3>
+    <h3 id="admin">Admin Panel </h3>
+    <div id="admin-panel" class="hidden">
+        <form id="change-cat-form" class="change-cat-form">
+            Cat Name: <input name="name" id="change-name" class="admin-change">
+            Cat Image URL: <input name="url" id="change-url" class="admin-change">
+            Cat Clicks: <input name="clicks" id="change-clicks" class="admin-change">
+        </form>
+        <button id="save">Save</button> 
+        <button id="cancel">Cancel</button> 
+    </div>
 
     <script src="js/libs/jquery.min.js"></script>
     <script src="js/script.js"></script>
