@@ -1,12 +1,87 @@
-var Cat = function() {
-    this.name = ko.observable('Tabby');
-    this.imgSrc = ko.observable('assets/img/cat0.jpg');
-    this.nicknames = ko.observableArray(['Tabtab', 'T-Bone', 'Mr.']);
-    this.clickCount = ko.observable(0);
+var initialCats = [
+    {
+        name: 'Orange Kittens', 
+        imgSrc: 'assets/img/cat0.jpg', 
+        clicks: 0,
+        nicknames: ['Tiggers']
+    },
+    {
+        name: 'Gray Tabby', 
+        imgSrc: 'assets/img/cat1.jpg', 
+        clicks: 0,
+        nicknames: ['Cool', 'Cats']
+    },
+    {
+        name: 'Rocky', 
+        imgSrc: 'assets/img/cat2.jpg', 
+        clicks: 0,
+        nicknames: ['Cool', 'Cats']
+    },
+    {
+        name: 'Kitten Spoon', 
+        imgSrc: 'assets/img/cat3.jpg', 
+        clicks: 0,
+        nicknames: ['Cool', 'Cats']
+    },
+    {
+        name: 'White Kitten', 
+        imgSrc: 'assets/img/cat4.jpg', 
+        clicks: 0,
+        nicknames: ['Cool', 'Cats']
+    },
+    {
+        name: 'Orange Kitten', 
+        imgSrc: 'assets/img/cat5.jpg', 
+        clicks: 0,
+        nicknames: ['Cool', 'Cats']
+    },
+    {
+        name: 'Computer Kitten', 
+        imgSrc: 'assets/img/cat6.jpg', 
+        clicks: 0,
+        nicknames: ['Cool', 'Cats']
+    },
+    {
+        name: 'Grumpy Cat', 
+        imgSrc: 'assets/img/cat7.jpg', 
+        clicks:0,
+        nicknames: ['Cool', 'Cats']
+    },
+    {
+        name: 'Scaredy Cat', 
+        imgSrc: 'assets/img/cat8.jpg', 
+        clicks:0,
+        nicknames: ['Cool', 'Cats']
+    },
+    {
+        name: 'Mad Cat', 
+        imgSrc: 'assets/img/cat9.jpg', 
+        clicks:0,
+        nicknames: ['Cool', 'Cats']
+    },
+    {
+        name: 'Sad Orange', 
+        imgSrc: 'assets/img/cat10.jpg', 
+        clicks:0,
+        nicknames: ['Cool', 'Cats']
+    },
+    {
+        name: 'Sleepy Orange', 
+        imgSrc: 'assets/img/cat11.jpg', 
+        clicks:0,
+        nicknames: ['Cool', 'Cats']     
+    }
+];
+
+var Cat = function(data) {
+    this.clickCount = ko.observable(data.clicks);
+    this.name = ko.observable(data.name);
+    this.imgSrc = ko.observable(data.imgSrc);
+    this.nicknames = data.nicknames;
 
     this.level = ko.computed(function(){
         var level;
-        var clicks = this.clickCount();
+        var clicks = this.clickCount;
 
         if (clicks < 10) {
             level = "Newborn";
@@ -25,11 +100,26 @@ var Cat = function() {
     }, this);
 };
 
+// [ ] Make cats show up in list
+//
+// [ ] Make currentCat change when clicked
+//
+// [ ] 
+
+
 var ViewModel = function() {
-    this.currentCat = ko.observable( new Cat() );    
+    var self = this;
+
+    this.catList = ko.observableArray([]);
+
+    initialCats.forEach(function(catItem){
+        self.catList.push( new Cat(catItem) );
+    });
+    
+    this.currentCat = ko.observable( this.catList()[0] );
 
     this.incrementCounter = function() {
-        this.currentCat().clickCount(this.currentCat().clickCount() + 1);
+        self.currentCat().clickCount(self.currentCat().clickCount() + 1);
     };
 }
 
