@@ -1,10 +1,35 @@
-var ViewModel = function() {
-    this.clickCount = ko.observable(0);
+var Cat = function() {
     this.name = ko.observable('Tabby');
     this.imgSrc = ko.observable('assets/img/cat0.jpg');
+    this.nicknames = ko.observableArray(['Tabtab', 'T-Bone', 'Mr.']);
+    this.clickCount = ko.observable(0);
+
+    this.level = ko.computed(function(){
+        var level;
+        var clicks = this.clickCount();
+
+        if (clicks < 10) {
+            level = "Newborn";
+        } else if (clicks < 50) {
+            level = "Infant";
+        } else if (clicks < 100) {
+            level = "Child";
+        } else if (clicks < 200) {
+            level = "Teen";
+        } else if (clicks < 500) {
+            level = "Adult";
+        } else {
+            level = "Ninja";
+        }
+        return level;
+    }, this);
+};
+
+var ViewModel = function() {
+    this.currentCat = ko.observable( new Cat() );    
 
     this.incrementCounter = function() {
-        this.clickCount(this.clickCount() + 1);
+        this.currentCat().clickCount(this.currentCat().clickCount() + 1);
     };
 }
 
