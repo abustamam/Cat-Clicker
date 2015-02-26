@@ -8,31 +8,29 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-<div class = 'container'>
-    <div class = 'col-3'>
+<div class='container'>
+    <div class='col-md-3 catlist'>
+        <h2>Pick your kitty!</h2>
+        <ul class='nav nav-pills nav-stacked' id ='cats'data-bind="foreach: catList">
+            <li role="presentation" class='cat'><a data-bind="text: name, click: $parent.changeCat"></a></li>
+        </ul>
     </div>
 
-    <div class='col-9' data-bind="with: currentCat">   
+    <div class='col-md-9' data-bind="with: currentCat">   
         <h2 data-bind="text: name"></h2>
         <h3 data-bind='text: level'></h3>
-        <div data-bind="text: clickCount"></div>
+        <div id="clicks" data-bind="text: clickCount"></div>
         <img src="" alt="cute cat" data-bind="click: $parent.incrementCounter, attr: {src: imgSrc}">
-        <div>
-            <h3>Nicknames</h3>
+        <div id='nicknames'>
+            <h4>Nicknames</h3>
             <ul data-bind='foreach: nicknames'>
                 <li><span data-bind='text: $data'></span></li>
             </ul>
         </div>
     </div>
 
-    <ul id="cats">
-    </ul>
-    <div id="catarea">
-        <img id="catpic" src="" />
-    </div>
 
-    <h1 id="clicks">0</h1>
-
+<!-- 
     <h3 id="reset">Reset ALL Clicks</h3>
     <h3 id="admin">Admin Panel </h3>
     <div id="admin-panel" class="hidden">
@@ -43,7 +41,7 @@
         </form>
         <button id="save">Save</button> 
         <button id="cancel">Cancel</button> 
-    </div>
+    </div> -->
     <script src="assets/js/libs/knockout-3.3.0.js"></script>
     <script src="assets/js/libs/jquery.min.js"></script>
     <script src="assets/js/libs/bootstrap.min.js"></script>

@@ -6,18 +6,20 @@ img, #catarea{
     margin: 0 auto;
 }
 
-ul, h3, #admin-panel{
+.catlist {
+  margin-top: 90px;
+}
+
+h2, h3, #admin-panel, #clicks {
   width: 100%;
   text-align: center;
 }
 
-.cat {
-  display: inline-block;
-  margin-right: 10px;
-  margin-left: 10px;
+#nicknames {
+  text-align: left;
 }
 
-h1, .catlist {
+h1{
     text-align: center;
 }
 

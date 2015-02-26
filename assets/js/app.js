@@ -77,11 +77,11 @@ var Cat = function(data) {
     this.clickCount = ko.observable(data.clicks);
     this.name = ko.observable(data.name);
     this.imgSrc = ko.observable(data.imgSrc);
-    this.nicknames = data.nicknames;
+    this.nicknames = ko.observable(data.nicknames);
 
     this.level = ko.computed(function(){
         var level;
-        var clicks = this.clickCount;
+        var clicks = this.clickCount();
 
         if (clicks < 10) {
             level = "Newborn";
@@ -121,9 +121,15 @@ var ViewModel = function() {
     this.incrementCounter = function() {
         self.currentCat().clickCount(self.currentCat().clickCount() + 1);
     };
+
+    this.changeCat = function() {
+        this.currentCat = ko.observable( this.catList()[0] );
+    }
 }
 
 ko.applyBindings(new ViewModel());
+
+
 
 // $(function(){
 
