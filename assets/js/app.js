@@ -98,14 +98,8 @@ var Cat = function(data) {
         }
         return level;
     }, this);
+
 };
-
-// [ ] Make cats show up in list
-//
-// [ ] Make currentCat change when clicked
-//
-// [ ] 
-
 
 var ViewModel = function() {
     var self = this;
@@ -116,16 +110,19 @@ var ViewModel = function() {
         self.catList.push( new Cat(catItem) );
     });
     
-    this.currentCat = ko.observable( this.catList()[0] );
+    self.currentCat = ko.observable( this.catList()[0] );
 
     self.incrementCounter = function() {
         self.currentCat().clickCount(self.currentCat().clickCount() + 1);
-        console.log(self.currentCat().imgSrc());
     };
 
     self.changeCat = function(cat) {
-        self.currentCat = ko.observable(cat);
-    }
+        self.currentCat(cat);
+    };
+
+    self.activeCat = ko.pureComputed(function(){
+
+    });
 }
 
 ko.applyBindings(new ViewModel());

@@ -11,8 +11,10 @@
 <div class='container'>
     <div class='col-md-3 catlist'>
         <h2>Pick your kitty!</h2>
-        <ul class='nav nav-pills nav-stacked' id ='cats'data-bind="foreach: catList">
-            <li role="presentation" class='cat'><a data-bind="text: name, click: $parent.changeCat"></a></li>
+        <ul class='nav nav-pills nav-stacked' id='cats' data-bind="foreach: catList">
+            <li role="presentation" class='cat' data-bind="css: {active: $data === $parent.currentCat() } ">
+                <a data-bind="text: name, click: $parent.changeCat"></a>
+            </li>
         </ul>
     </div>
 
