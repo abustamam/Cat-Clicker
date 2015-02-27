@@ -40,3 +40,9 @@ Bugfix: Reset button works properly
 ## version 0.5
 
 Add admin panel, which allows "cheating" (aka changing number of clicks)
+
+## version 0.6
+
+Removed admin panel, add knockout framework and bootstrap.
+
+I used Bootstrap to select the "current cat" so that it is highlighted. 
